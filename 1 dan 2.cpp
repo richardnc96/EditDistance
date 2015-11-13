@@ -7,7 +7,6 @@
 using namespace std;
 
 //frequensi blom
-//menghilngkan tanda baca blom
 
 int main () {
   const int ukuran = 50;
@@ -21,6 +20,7 @@ int main () {
     {
        istream & getline(data >> line);
        transform(line.begin(),line.end(),line.begin(), ::tolower);//tolower
+       line.erase(remove_if(line.begin(),line.end(), ::ispunct ), line.end());//punctuation 
 	   array[a] = line;
        cout << array[a] << endl;
        a++;
