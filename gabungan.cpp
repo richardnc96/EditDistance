@@ -11,6 +11,7 @@
 #include <algorithm> 
 using namespace std;
 
+
 int EditDistance(string word1, string word2)
 {
     int i, j, l1, l2, m;
@@ -72,6 +73,7 @@ int main () {
 	string arr[10000],kata,line;
 	int banyak = 0;
 	bool ada;
+	bool adamatch=false;
 		header();
 	  ifstream data("textupload.txt");//baca file
 	  if (data.is_open())
@@ -121,11 +123,12 @@ int main () {
 		{
 			if (hound[j]==i)
 			{
+				adamatch = true;
 				cout<< arr[j]<<" "<<hound[j]<<" "<<freq[j]<<endl;
 			}
 		}
 	} 
-
+	if (adamatch==false) cout<<"Kata tidak ditemukan!\n";
   return 0;
 }
 
