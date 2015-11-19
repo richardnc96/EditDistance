@@ -89,7 +89,7 @@ int main () {
 			if (line==arr[i]) 
 			{
 				ada=true;
-				freq[banyak]++;
+				freq[i]++;
 				break;
 			}
 		}
