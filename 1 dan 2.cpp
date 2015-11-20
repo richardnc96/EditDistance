@@ -32,7 +32,7 @@ int main () {
        cout << array[a] << endl;
        a++;
     }
-    cout << array[1] << endl;
+    //cout << array[1] << endl;
     data.close();
   }
   else cout << "Unable to open file"; 
