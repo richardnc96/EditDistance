@@ -96,7 +96,7 @@ int main () {
 		{
 			if (line==arr[i]) 
 			{
-				cout<< arr[i]<<endl;
+				//cout<< arr[i]<<endl;
 				ada=true;
 				freq[banyak]++;
 				break;
