@@ -1,4 +1,4 @@
-#include <stdio.h>
+	#include <stdio.h>
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -59,6 +59,13 @@ void quickSort(string arr[], int left, int right) {
       if (i < right)
             quickSort(arr, i, right);
 }
+
+int punctuation(int a )
+{
+if(ispunct(a) && a!='\'') return 1;
+return 0;
+}
+
 void header() {
 	cout<<"=========PROGRAM EDIT DISTANCE=========\n\n";
     cout<<setw(25)<<"Dibuat oleh:\n";
@@ -69,8 +76,8 @@ void header() {
 	}
 
 int main () {
-	int distance,editdistance,hound[10000],freq[10000]={1};
-	string arr[10000],kata,line;
+	int distance,editdistance,hound[80000],freq[80000]={1};
+	string arr[80000],kata,line;
 	int banyak = 0;
 	bool ada;
 	bool adamatch=false;
@@ -83,11 +90,13 @@ int main () {
 		ada = false;
 	       istream & getline(data >> line);
 	       transform(line.begin(),line.end(),line.begin(), ::tolower);//tolower
-	       line.erase(remove_if(line.begin(),line.end(), ::ispunct ), line.end());//punctuation 
+	       //line.erase(remove_if(line.begin(),line.end(), ::ispunct ), line.end());//punctuation 
+	       line.erase(remove_if(line.begin(),line.end(), ([](char x){return ::punctuation(x);}) ), line.end());//punctuation 
 		for ( int i = 0; i<banyak; i++)
 		{
 			if (line==arr[i]) 
 			{
+				cout<< arr[i]<<endl;
 				ada=true;
 				freq[banyak]++;
 				break;
@@ -131,4 +140,3 @@ int main () {
 	if (adamatch==false) cout<<"Kata tidak ditemukan!\n";
   return 0;
 }
-
