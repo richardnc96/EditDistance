@@ -2,3 +2,6 @@ http://www.sanfoundry.com/cpp-program-implement-levenshtein-distance-computing-a
 http://codereview.stackexchange.com/questions/77782/quick-sort-implementation accessed 11 November 21:16
 http://stackoverflow.com/questions/3403844/tolower-function-for-c-strings >>>>tolower accessed 13 november 20:12
 http://en.cppreference.com/w/cpp/algorithm/remove >>>>punctuation accessed 19 november 23:45
+
+Cara manggil
+g++ -std=c++11 gabungan.cpp

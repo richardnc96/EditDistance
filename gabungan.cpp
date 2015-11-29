@@ -12,7 +12,7 @@
 #include <cctype>
 using namespace std;
 
-
+//fungsi edit distance
 int EditDistance(string word1, string word2)
 {
     int i, j, l1, l2, m;
@@ -36,6 +36,7 @@ int EditDistance(string word1, string word2)
     return t[l1][l2];
 }
 
+//fungsi sorting
 void quickSort(string arr[], int left, int right, int freq[]) {
       int i = left, j = right,tmp1;
       string tmp;
@@ -63,7 +64,7 @@ void quickSort(string arr[], int left, int right, int freq[]) {
       if (i < right)
             quickSort(arr, i, right,freq);
 }
-
+//fungsi cek punctution
 int punctuation(int a )
 {
 if(ispunct(a) && a!='\'') return 1;
@@ -83,7 +84,6 @@ int main () {
 int byk,i= 0;
 int distance,editdistance,hound[10000],freq[10000];	
 char pilihan;
-bool adamatch=false;
   string arr[10000],line,kata;
   ifstream data("textupload.txt");//baca file
   if (data.is_open())
@@ -108,24 +108,23 @@ bool adamatch=false;
 	arr[byk] = line;
 			byk++;
 }
-       //cout << array[a] << endl;
     }
     data.close();
   }
-/*for (i=0;i<byk;i++)
-	{
-    cout << arr[i] <<" "<<freq[i]+1<< endl;
-	}*/
 
   else cout << "Unable to open file"; 
 
 do {
 	system("cls");
 	header();
+bool adamatch=false;
+	// sorting data
 	quickSort(arr,0,byk,freq);
+
 	cout <<"Masukkan kata yang ingin diketahui distancenya ";
 	cin >>kata;
 	transform(kata.begin(), kata.end(), kata.begin(), ::tolower);
+
 	//panggil fungsi distance
 	for (int i=0;i<byk;i++)
 	{
@@ -133,6 +132,7 @@ do {
 	}
 
 	cout<<"Masukkan Edit Distance (Minimum 0): ";
+	//pencarian edit distance
 	cin>>editdistance;
 	for (int i=0;i<=editdistance;i++)
 	{
