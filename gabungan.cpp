@@ -1,4 +1,4 @@
-	#include <stdio.h>
+#include <stdio.h>
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -9,6 +9,7 @@
 #include <string>
 #include <locale>
 #include <algorithm> 
+#include <cctype>
 using namespace std;
 
 
@@ -35,8 +36,8 @@ int EditDistance(string word1, string word2)
     return t[l1][l2];
 }
 
-void quickSort(string arr[], int left, int right) {
-      int i = left, j = right;
+void quickSort(string arr[], int left, int right, int freq[]) {
+      int i = left, j = right,tmp1;
       string tmp;
       string pivot = arr[(left + right) / 2];
       /* partition */
@@ -47,17 +48,20 @@ void quickSort(string arr[], int left, int right) {
                   j--;
             if (i <= j) {
                   tmp = arr[i];
+		tmp1= freq[i];
                   arr[i] = arr[j];
+		freq[i]=freq[j];
                   arr[j] = tmp;
+		freq[j]=tmp1;
                   i++;
                   j--;
             }
       };
       /* recursion */
       if (left < j)
-            quickSort(arr, left, j);
+            quickSort(arr, left, j,freq);
       if (i < right)
-            quickSort(arr, i, right);
+            quickSort(arr, i, right,freq);
 }
 
 int punctuation(int a )
@@ -76,50 +80,54 @@ void header() {
 	}
 
 int main () {
-	int distance,editdistance,hound[80000],freq[80000]={1};
-	string arr[80000],kata,line;
-	int banyak = 0;
-	bool ada;
-	bool adamatch=false;
-		header();
-	  ifstream data("textupload.txt");//baca file
-	  if (data.is_open())
-	  {
-	    while(!data.eof())
-	    {
-		ada = false;
-	       istream & getline(data >> line);
-	       transform(line.begin(),line.end(),line.begin(), ::tolower);//tolower
-	       //line.erase(remove_if(line.begin(),line.end(), ::ispunct ), line.end());//punctuation 
-	       line.erase(remove_if(line.begin(),line.end(), ([](char x){return ::punctuation(x);}) ), line.end());//punctuation 
-		for ( int i = 0; i<banyak; i++)
+int byk,i= 0;
+int distance,editdistance,hound[10000],freq[10000];	
+char pilihan;
+bool adamatch=false;
+  string arr[10000],line,kata;
+  ifstream data("textupload.txt");//baca file
+  if (data.is_open())
+  {
+    while(!data.eof())
+    {
+       istream & getline(data >> line);
+       transform(line.begin(),line.end(),line.begin(), ::tolower);//tolower
+       line.erase(remove_if(line.begin(),line.end(), ([](char x){return ::punctuation(x);}) ), line.end());//punctuation
+	bool ada = false; 
+	for (i=0;i<byk;i++)
+	{	
+		if (arr[i] == line)
 		{
-			if (line==arr[i]) 
-			{
-				//cout<< arr[i]<<endl;
-				ada=true;
-				freq[banyak]++;
-				break;
-			}
+			ada=true;
+			freq[i]++;
+			break;
 		}
-		if (ada==false)  
-		{
-			arr[banyak] = line;
-		  	banyak++;
-		}
-			
-	    }
-	    
-	    data.close();
 	}
-	else cout << "Unable to open file"; 
+	if (ada ==false)
+{
+	arr[byk] = line;
+			byk++;
+}
+       //cout << array[a] << endl;
+    }
+    data.close();
+  }
+/*for (i=0;i<byk;i++)
+	{
+    cout << arr[i] <<" "<<freq[i]+1<< endl;
+	}*/
 
-	quickSort(arr,0,banyak);
+  else cout << "Unable to open file"; 
+
+do {
+	system("cls");
+	header();
+	quickSort(arr,0,byk,freq);
 	cout <<"Masukkan kata yang ingin diketahui distancenya ";
 	cin >>kata;
 	transform(kata.begin(), kata.end(), kata.begin(), ::tolower);
 	//panggil fungsi distance
-	for (int i=0;i<=banyak;i++)
+	for (int i=0;i<byk;i++)
 	{
 		hound[i] = EditDistance(arr[i],kata);
 	}
@@ -128,15 +136,19 @@ int main () {
 	cin>>editdistance;
 	for (int i=0;i<=editdistance;i++)
 	{
-		for (int j=0;j<=banyak;j++)
+		for (int j=0;j<byk;j++)
 		{
 			if (hound[j]==i)
 			{
 				adamatch = true;
-				cout<< arr[j]<<" "<<hound[j]<<" "<<freq[j]<<endl;
+				cout<< arr[j]<<" "<<hound[j]<<" "<<freq[j]+1<<endl;
 			}
 		}
 	} 
-	if (adamatch==false) cout<<"Kata tidak ditemukan!\n";
+	if (adamatch==false) cout<<"No Match Found\n";
+	cout<<"Apakah Anda ingin melakukan pencarian lagi? [Y/N] ";
+	cin>>pilihan;
+} while(pilihan=='y'||pilihan=='Y');
   return 0;
 }
+
