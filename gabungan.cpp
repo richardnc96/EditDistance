@@ -120,7 +120,7 @@ do {
 bool adamatch=false;
 	// sorting data
 	quickSort(arr,0,byk,freq);
-
+	
 	cout <<"Masukkan kata yang ingin diketahui distancenya ";
 	cin >>kata;
 	transform(kata.begin(), kata.end(), kata.begin(), ::tolower);
@@ -130,10 +130,18 @@ bool adamatch=false;
 	{
 		hound[i] = EditDistance(arr[i],kata);
 	}
-
+	
+	loop:
 	cout<<"Masukkan Edit Distance (Minimum 0): ";
 	//pencarian edit distance
 	cin>>editdistance;
+	//error checking
+	if (cin.fail()) {
+        	cout <<"Maaf input yang anda masukkan harus berupa angka, silahkan masukan kembali"<<endl;
+        	cin.clear ();
+        	cin.ignore();
+		goto loop;
+   	}
 	for (int i=0;i<=editdistance;i++)
 	{
 		for (int j=0;j<byk;j++)
@@ -146,9 +154,11 @@ bool adamatch=false;
 		}
 	} 
 	if (adamatch==false) cout<<"No Match Found\n";
-	cout<<"Apakah Anda ingin melakukan pencarian lagi? [Y/N] ";
+	cout<<"Apakah Anda ingin melakukan pencarian lagi? [Jika YA, masukkan Y] ";
 	cin>>pilihan;
 } while(pilihan=='y'||pilihan=='Y');
-  return 0;
+	
+	cout<<"\nTerima kasih telah menggunakan program Edit Distance!\n";
+return 0;
 }
 
