@@ -84,6 +84,7 @@ int main () {
 int byk,i= 0;
 int distance,editdistance,hound[10000],freq[10000];	
 char pilihan;
+string edit;
   string arr[10000],line,kata;
   ifstream data("textupload.txt");//baca file
   if (data.is_open())
@@ -134,14 +135,24 @@ bool adamatch=false;
 	loop:
 	cout<<"Masukkan Edit Distance (Minimum 0): ";
 	//pencarian edit distance
-	cin>>editdistance;
-	//error checking
-	if (cin.fail()) {
-        	cout <<"Maaf input yang anda masukkan harus berupa angka, silahkan masukan kembali"<<endl;
-        	cin.clear ();
-        	cin.ignore();
+	getchar();
+	getline(cin,edit);
+    for (int i=0;i<edit.length();i++)
+    {
+    	if ((edit[i] != '1')&&(edit[i] != '2')&&(edit[i] != '3')&&(edit[i] != '4')&&(edit[i] != '5')&&(edit[i] != '6')&&(edit[i] != '7')&&(edit[i] != '8')&&(edit[i] != '9')&&(edit[i] != '0')||edit[0]=='-')
+    	{
+    		system("cls");
+    		cout<<"edit distance harus berupa bilangan bulat! dan lebih besar dari -1"<<endl<<endl;
 		goto loop;
    	}
+    }
+	editdistance=atoi(edit.c_str());
+
+	if (editdistance <0)
+	{
+		cout <<"Maaf input yang anda masukkan minimal adalah 0, silahkan masukan kembali"<<endl;
+		goto loop;
+	}
 	for (int i=0;i<=editdistance;i++)
 	{
 		for (int j=0;j<byk;j++)
